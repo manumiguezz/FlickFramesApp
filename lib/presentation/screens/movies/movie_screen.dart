@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:app_cinema/presentation/providers/actors/actors_by_movie_provider.dart';
 import 'package:app_cinema/presentation/providers/movies/movie_info_provider.dart';
+import 'package:app_cinema/presentation/providers/storage/local_storage_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -178,7 +179,13 @@ class _ActorsByMovie extends ConsumerWidget {
   }
 }
 
-class _CustomSliverAppbar extends StatelessWidget {
+final isFavouriteProvider = FutureProvider.family((ref, int movieId) {
+
+  final localStorageRepository = ref.watch(localStorageRepositoryProvider);
+  return localStorageRepository.isMovieFavourite(movieId);
+});
+
+class _CustomSliverAppbar extends ConsumerWidget {
 
   final Movie movie;
   
@@ -187,7 +194,9 @@ class _CustomSliverAppbar extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final isFavoriteFuture = ref.watch(isFavouriteProvider(movie.id));
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
       backgroundColor: Colors.black,
@@ -196,10 +205,17 @@ class _CustomSliverAppbar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            
+            ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+            ref.invalidate(isFavouriteProvider(movie.id));
           }, 
-          icon: const Icon(Icons.favorite_border)
-          // icon: const Icon(Icons.favorite, color: Colors.red,),
+          icon: isFavoriteFuture.when(
+            data: (isFavourite) => isFavourite
+            ? const Icon(Icons.favorite, color: Colors.red,)
+            : const Icon(Icons.favorite_border),
+            error: (_, __) => throw UnimplementedError(), 
+            loading: () => const CircularProgressIndicator(strokeWidth: 2,)) 
+          
+          
         ),
       ],
       flexibleSpace: FlexibleSpaceBar(
