@@ -42,8 +42,7 @@ class StorageMoviesNotifier extends StateNotifier<Map<int, Movie>>{
       state.remove(movie.id);
       state = {...state};
     } else {
-      state = {...state};
-      //state {...state, movie.id: movie};
+      state = {...state, movie.id: movie};
     }
   }
   

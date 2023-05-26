@@ -44,6 +44,26 @@ class FavouriteViewState extends ConsumerState <FavouritesView> {
 
     final favouriteMovies = ref.watch(favouriteMoviesProvider).values.toList();
 
+    if (favouriteMovies.isEmpty){
+      final colors = Theme.of(context).colorScheme;
+
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 100,
+              child: Image.asset('assets/sad-face.png')
+            ),
+            const SizedBox(height: 20,),
+            const Text('Oh no!', style: TextStyle(fontSize: 30),),
+            const Text('It seems you have no favourite movies')
+          ],
+        )
+      );
+    }
+
     return Scaffold(
       body: MovieMasonry(
         movies: favouriteMovies,
