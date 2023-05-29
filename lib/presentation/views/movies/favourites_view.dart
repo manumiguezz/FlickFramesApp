@@ -14,7 +14,7 @@ class FavouritesView extends ConsumerStatefulWidget {
   FavouriteViewState createState() => FavouriteViewState();
 }
 
-class FavouriteViewState extends ConsumerState <FavouritesView> {
+class FavouriteViewState extends ConsumerState <FavouritesView> with AutomaticKeepAliveClientMixin {
 
   bool isLastPage = false;
   bool isLoading = false;
@@ -41,11 +41,11 @@ class FavouriteViewState extends ConsumerState <FavouritesView> {
   
   @override
   Widget build(BuildContext context) {
+    super.build(context);
 
     final favouriteMovies = ref.watch(favouriteMoviesProvider).values.toList();
 
     if (favouriteMovies.isEmpty){
-      final colors = Theme.of(context).colorScheme;
 
       return Center(
         child: Column(
@@ -58,7 +58,7 @@ class FavouriteViewState extends ConsumerState <FavouritesView> {
             ),
             const SizedBox(height: 20,),
             const Text('Oh no!', style: TextStyle(fontSize: 30),),
-            const Text('It seems you have no favourite movies')
+            const Text('You have no favourite movies on your list')
           ],
         )
       );
@@ -72,6 +72,9 @@ class FavouriteViewState extends ConsumerState <FavouritesView> {
     );
 
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 
 }
 

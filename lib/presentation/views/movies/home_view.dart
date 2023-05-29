@@ -6,6 +6,7 @@ import '../../delegates/search_movie_delegate.dart';
 import '../../providers/movies/movies_slideshow_provider.dart';
 import '../../providers/providers.dart';
 import '../../widgets/widgets.dart';
+import '../views.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -14,7 +15,7 @@ class HomeView extends ConsumerStatefulWidget {
   HomeViewState createState() => HomeViewState();
 }
 
-class HomeViewState extends ConsumerState<HomeView> {
+class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClientMixin{
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class HomeViewState extends ConsumerState<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
 
     final initialLoading = ref.watch(initialLoadingProvider);
     if(initialLoading) return const FullScreenLoader();
@@ -36,6 +38,12 @@ class HomeViewState extends ConsumerState<HomeView> {
     final popularMovies = ref.watch(popularMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
+
+    final viewRoutes = const <Widget> [
+      HomeView(),
+      FavouritesView(),
+      CategoryView(),
+    ];
 
     return Visibility(
       visible: !initialLoading,
@@ -119,4 +127,7 @@ class HomeViewState extends ConsumerState<HomeView> {
       ),
     );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }
