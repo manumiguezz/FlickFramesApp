@@ -1,3 +1,5 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:app_cinema/config/theme/app_theme.dart';
 import 'package:app_cinema/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,25 +41,30 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
 
-    final viewRoutes = const <Widget> [
-      HomeView(),
-      FavouritesView(),
-      CategoryView(),
-    ];
+    // final viewRoutes = const <Widget> [
+    //   HomeView(),
+    //   FavouritesView(),
+    //   CategoryView(),
+    // ];
 
-    return Visibility(
-      visible: !initialLoading,
-      child: CustomScrollView(
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    void _openDrawer() {
+    _scaffoldKey.currentState?.openDrawer();
+    }
+
+    return Scaffold(
+      // visible: !initialLoading,
+      body: CustomScrollView(
         slivers: [
         
           SliverPadding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             sliver: SliverAppBar(
-              leading: const Icon(Icons.more_horiz_outlined),
-              title: const Text('MOBILE CINEMA', style: TextStyle(fontWeight: FontWeight.bold),),
+              title: const Text('FLICKFRAMES', style: TextStyle(fontWeight: FontWeight.bold),),
               centerTitle: true,
               pinned: false,
-              actions: [ 
+              actions: [
                 IconButton(
                   onPressed: (){
                     final searchQuery = ref.read(searchQueryProvider);
@@ -71,8 +78,6 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
                       if (movie == null) return;
                       context.push('/home/0/movie/${movie.id}');
                     });
-
-
                   }, 
                   icon: const Icon(Icons.search),
                 ),
@@ -124,6 +129,34 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
             )
           )
         ],
+      ),
+
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            ThemeSwitchingArea(
+              child: Builder(builder: (context) {
+                return Drawer(
+                  child: Column(
+                    children: [
+                      const Text('Theme Changer'),
+
+                      const SizedBox(height: 50,),
+
+                      IconButton(
+                        onPressed: () => ThemeSwitcher.of(context).changeTheme(
+                          theme: AppTheme().getThemeDark()
+                        ), 
+                        icon: const Icon(Icons.nights_stay)
+                      )
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

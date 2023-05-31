@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:app_cinema/config/theme/app_theme.dart';
 import 'package:app_cinema/config/router/app_router.dart';
@@ -18,10 +19,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: appRouter,
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme().getTheme(),
+    return ThemeProvider(
+      initTheme: AppTheme().getTheme(),
+      builder: (context, theme) {
+      return MaterialApp.router(
+        routerConfig: appRouter,
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme().getTheme(),
+      );
+      }
     );
   }
 }

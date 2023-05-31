@@ -38,11 +38,6 @@ class CustomBottomNavigation extends StatelessWidget {
           icon: Icon(Icons.home_outlined),
           label: 'Home',       
         ),
-
-        BottomNavigationBarItem(
-          icon: Icon(Icons.movie_filter_outlined),
-          label: 'Categories'
-        ),
         
         BottomNavigationBarItem(
           icon: Icon(Icons.star_border_outlined),

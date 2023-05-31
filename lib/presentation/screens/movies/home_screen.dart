@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
       pageController.animateToPage(
         widget.pageIndex, 
         duration: const Duration(milliseconds: 250), 
-        curve: Curves.easeInOut,
+        curve: Curves.easeInOut, 
       );
     }
 
