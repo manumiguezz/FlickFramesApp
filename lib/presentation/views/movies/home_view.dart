@@ -1,5 +1,3 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:app_cinema/config/theme/app_theme.dart';
 import 'package:app_cinema/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,10 +6,12 @@ import '../../delegates/search_movie_delegate.dart';
 import '../../providers/movies/movies_slideshow_provider.dart';
 import '../../providers/providers.dart';
 import '../../widgets/widgets.dart';
-import '../views.dart';
 
 class HomeView extends ConsumerStatefulWidget {
-  const HomeView({super.key});
+  const HomeView({
+    Key? key,
+    }) : super(key: key);
+
 
   @override
   HomeViewState createState() => HomeViewState();
@@ -32,6 +32,8 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
   Widget build(BuildContext context) {
     super.build(context);
 
+    final colors = Theme.of(context).colorScheme;
+
     final initialLoading = ref.watch(initialLoadingProvider);
     if(initialLoading) return const FullScreenLoader();
 
@@ -41,17 +43,6 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
 
-    // final viewRoutes = const <Widget> [
-    //   HomeView(),
-    //   FavouritesView(),
-    //   CategoryView(),
-    // ];
-
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-    void _openDrawer() {
-    _scaffoldKey.currentState?.openDrawer();
-    }
 
     return Scaffold(
       // visible: !initialLoading,
@@ -129,34 +120,6 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
             )
           )
         ],
-      ),
-
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            ThemeSwitchingArea(
-              child: Builder(builder: (context) {
-                return Drawer(
-                  child: Column(
-                    children: [
-                      const Text('Theme Changer'),
-
-                      const SizedBox(height: 50,),
-
-                      IconButton(
-                        onPressed: () => ThemeSwitcher.of(context).changeTheme(
-                          theme: AppTheme().getThemeDark()
-                        ), 
-                        icon: const Icon(Icons.nights_stay)
-                      )
-                    ],
-                  ),
-                );
-              }),
-            ),
-          ],
-        ),
       ),
     );
   }

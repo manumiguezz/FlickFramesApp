@@ -36,10 +36,6 @@ class _MovieHorizontalListViewState extends State<MovieHorizontalListView> {
       
     });
 
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
   }
   @override
   Widget build(BuildContext context) {
@@ -92,25 +88,15 @@ class _Slide extends StatelessWidget {
           SizedBox(
             width: 150,
             child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-
-              child: Image.network(
-                movie.posterPath,
-                fit: BoxFit.cover,
-                width: 150,
-                
-                loadingBuilder: (context, child, loadingProgress) {
-                  if(loadingProgress != null){
-                    return const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Center(child: CircularProgressIndicator(strokeWidth: 2,),),
-                    );
-                  }
-                  return GestureDetector(
-                    onTap: () => context.push('/home/0/movie/${movie.id}'),
-                    child: FadeIn(child: child)
-                  );
-                }
+              borderRadius: BorderRadius.circular(20),
+              child: GestureDetector(
+                onTap: () => context.push('/home/0/movie/${ movie.id }'),
+                child: FadeInImage(
+                  height: 220,
+                  fit: BoxFit.cover,
+                  placeholder: const AssetImage('assets/loaders/bottle-loader.gif'), 
+                  image: NetworkImage(movie.posterPath)
+                ),
               ),
             ),
           ),
@@ -168,7 +154,7 @@ class _Title extends StatelessWidget {
           if (title != null)
             Text(title!, style: titleStyle,),
 
-          const Spacer(),
+          const SizedBox(height: 5,),
 
           if (subtitle != null)
             FilledButton.tonal(

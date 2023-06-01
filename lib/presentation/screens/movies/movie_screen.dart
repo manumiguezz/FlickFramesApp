@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:app_cinema/presentation/providers/actors/actors_by_movie_provider.dart';
 import 'package:app_cinema/presentation/providers/movies/movie_info_provider.dart';
 import 'package:app_cinema/presentation/providers/providers.dart';
-import 'package:app_cinema/presentation/providers/storage/local_storage_provider.dart';
+import 'package:app_cinema/presentation/widgets/movies/similar_movies.dart';
+import 'package:app_cinema/presentation/widgets/shared/movie_rating_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -62,15 +62,75 @@ class _MovieDetails extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
+    final textStyles = Theme.of(context).textTheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        _TitleAndDescription(movie: movie, size: size, textStyles: textStyles),
+
+        _Genres(movie: movie),
+
+        _ActorsByMovie(movieId: movie.id.toString()),
+
+        SimilarMovies(movieId: movie.id),
+      ],
+    );
+  }
+}
+
+class _Genres extends StatelessWidget {
+
+  final Movie movie;
+  const _Genres({required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+            padding: const EdgeInsets.all(8),
+            child: SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: WrapAlignment.center,
+                
+                children: [
+                  ...movie.genreIds.map((gender) => Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: Chip(
+                      label: Text(gender),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    ),
+                  ))
+                ],
+              ),
+            ),
+          );
+  }
+}
+
+class _TitleAndDescription extends StatelessWidget {
+  
+  final Movie movie;
+  final Size size;
+  final TextTheme textStyles;
+  
+  const _TitleAndDescription({
+    required this.movie, 
+    required this.size, 
+    required this.textStyles
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          Column(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
@@ -80,45 +140,37 @@ class _MovieDetails extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(width: 10,),
+              const SizedBox(height: 10,),
 
-              SizedBox(
-                width: (size.width -40) * 0.7,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(movie.title,
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26), 
-                    ),
-                    Text(movie.overview,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(fontSize: 20, ), 
-                    ),
-                  ],
-                ),
-              )
+              MovieRatingStars(movie: movie),
+
+              const SizedBox(height: 5,),
+
+              Text('vote average of\n ${movie.voteAverage}',
+                style: TextStyle(color: Colors.amber.shade900),
+                textAlign: TextAlign.center,
+                )
             ],
           ),
-          ),
 
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Wrap(
+          const SizedBox(width: 10,),
+
+          SizedBox(
+            width: (size.width - 40) * 0.7,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ...movie.genreIds.map((gender) => Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  child: Chip(
-                    label: Text(gender),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  ),
-                ))
+                Text( movie.title, style: textStyles.titleLarge ),
+                Text( movie.overview ),
+
+                const SizedBox(height: 10,),
               ],
             ),
-          ),
+          )
 
-          _ActorsByMovie(movieId: movie.id.toString())
-      ],
+
+        ],
+      ),
     );
   }
 }
@@ -131,51 +183,65 @@ class _ActorsByMovie extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final actorsByMovie = ref.watch(actorsByMovieProvider);
+    final textStyle = Theme.of(context).textTheme;
 
     if (actorsByMovie[movieId] == null){
       return const CircularProgressIndicator(strokeWidth: 2,);
     }
     final actors = actorsByMovie[movieId]!;
 
-    return SizedBox(
-      height: 300,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: actors.length,
-        itemBuilder: (BuildContext context, int index) {
-          final actor = actors[index];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 10),
+          child: Text('Movie Cast',
+          style: textStyle.titleLarge,
+          textAlign: TextAlign.start,
+          ),
+        ),
 
-          return Container(
-            padding: const EdgeInsets.all(8),
-            width: 135,
-            child: Column(
-              textDirection: TextDirection.ltr,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+        SizedBox(
+          height: 300,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: actors.length,
+            itemBuilder: (BuildContext context, int index) {
+              final actor = actors[index];
 
-                FadeInRight(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      actor.profilePath,
-                      height: 180,
-                      width: 135,
-                      fit: BoxFit.cover,
+              return Container(
+                padding: const EdgeInsets.all(8),
+                width: 135,
+                child: Column(
+                  textDirection: TextDirection.ltr,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    FadeInRight(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          actor.profilePath,
+                          height: 180,
+                          width: 135,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
+
+                    const SizedBox(height: 5),
+
+                    Text(actor.name, maxLines: 2,),
+                    Text(actor.character ?? '',
+                    maxLines: 2,
+                    style: const TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis))
+                  ],
                 ),
-
-                const SizedBox(height: 5),
-
-                Text(actor.name, maxLines: 2,),
-                Text(actor.character ?? '',
-                maxLines: 2,
-                style: const TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis))
-              ],
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

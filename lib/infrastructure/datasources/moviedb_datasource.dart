@@ -108,4 +108,10 @@ class MovidedbDatasource extends MoviesDatasource {
 
   }
   
+  @override
+  Future<List<Movie>> getSimilarMovies(int movieId) async{
+    final response = await dio.get('/movie/$movieId/similar');
+    return _jsonToMovies(response.data);
+  }
+  
 }
