@@ -94,7 +94,7 @@ class _Slide extends StatelessWidget {
                 child: FadeInImage(
                   height: 220,
                   fit: BoxFit.cover,
-                  placeholder: const AssetImage('assets/loaders/bottle-loader.gif'), 
+                  placeholder: const AssetImage('assets/loading-circle.gif'), 
                   image: NetworkImage(movie.posterPath)
                 ),
               ),
@@ -119,7 +119,7 @@ class _Slide extends StatelessWidget {
               children: [
                 MovieIconAverage(movie: movie),
                 const SizedBox(width: 3,),
-                Text('${movie.voteAverage}', style: textStyles.bodyMedium?.copyWith(color: Colors.yellow.shade800),),
+                Text('${HumanFormats.number(movie.voteAverage, 1)}', style: textStyles.bodyMedium?.copyWith(color: Colors.yellow.shade800),),
                 const Spacer(),
                 Text(HumanFormats.number(movie.popularity), style: textStyles.bodySmall,)
               ],
@@ -146,7 +146,7 @@ class _Title extends StatelessWidget {
     final titleStyle = Theme.of(context).textTheme.titleLarge;
 
     return Container(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
@@ -156,12 +156,6 @@ class _Title extends StatelessWidget {
 
           const SizedBox(height: 5,),
 
-          if (subtitle != null)
-            FilledButton.tonal(
-              style: const ButtonStyle(visualDensity: VisualDensity.compact),
-              onPressed: () {}, 
-              child: Text(subtitle!,)
-            )
         ],
       ),
     );
