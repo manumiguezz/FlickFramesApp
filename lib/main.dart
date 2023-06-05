@@ -1,5 +1,6 @@
 
 import 'package:app_cinema/config/theme/app_theme.dart';
+import 'package:app_cinema/presentation/providers/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:app_cinema/config/router/app_router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -32,11 +33,17 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: appRouter,
-      debugShowCheckedModeBanner: false,
-      theme: isDarkModeEnabled ? AppTheme().darkTheme : AppTheme().lightTheme,
-      
+    return Consumer(
+      builder: (context, ref, _) {
+        final themeProvider = ref.watch(themeProviderNotifier);
+        return MaterialApp.router(
+          routerConfig: appRouter,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.light(),
+          darkTheme: ThemeData.dark(),
+          themeMode: themeProvider.currentThemeMode,
+        );
+      },
     );
   }
 }

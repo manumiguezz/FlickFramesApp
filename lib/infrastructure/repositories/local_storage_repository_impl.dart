@@ -5,7 +5,7 @@ import 'package:app_cinema/domain/datasources/local_storage_datasource.dart';
 import 'package:app_cinema/domain/entities/movie.dart';
 import 'package:app_cinema/domain/repositories/local_storage_repository.dart';
 
-class LocalStorageRepositoryImpl extends LocalStorageRepository {  @override
+class LocalStorageRepositoryImpl extends LocalStorageRepository {
   
   final LocalStorageDatasource datasource;
 

@@ -5,6 +5,7 @@ import 'package:app_cinema/presentation/widgets/movies/similar_movies.dart';
 import 'package:app_cinema/presentation/widgets/shared/movie_rating_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:app_cinema/config/helpers/human_formats.dart';
 
 import '../../../domain/entities/movie.dart';
 
@@ -146,7 +147,7 @@ class _TitleAndDescription extends StatelessWidget {
 
               const SizedBox(height: 5,),
 
-              Text('vote average of\n ${movie.voteAverage}',
+              Text('vote average of\n ${HumanFormats.number(movie.voteAverage, 2)}',
                 style: TextStyle(color: Colors.amber.shade900),
                 textAlign: TextAlign.center,
                 )
@@ -194,7 +195,7 @@ class _ActorsByMovie extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.only(left: 10),
+          padding: const EdgeInsets.only(left: 10),
           child: Text('Movie Cast',
           style: textStyle.titleLarge,
           textAlign: TextAlign.start,

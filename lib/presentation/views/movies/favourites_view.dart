@@ -52,7 +52,7 @@ class FavouriteViewState extends ConsumerState <FavouritesView> with AutomaticKe
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: 100,
               child: Image.asset('assets/sad-face.png')
             ),

@@ -1,4 +1,5 @@
 import 'package:app_cinema/domain/entities/movie.dart';
+import 'package:app_cinema/presentation/widgets/shared/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +46,7 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
 
 
     return Scaffold(
-      // visible: !initialLoading,
+      drawer: CustomDrawer(),
       body: CustomScrollView(
         slivers: [
         
@@ -53,6 +54,7 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             sliver: SliverAppBar(
               title: const Text('FLICKFRAMES', style: TextStyle(fontWeight: FontWeight.bold),),
+              backgroundColor: colors.background,
               centerTitle: true,
               pinned: false,
               actions: [
@@ -75,49 +77,52 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
               ],
             )
           ),
-        
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return Column(
-                  children: [
-                    
-                    MoviesSlideshow(movies: slideShowMovies),
-              
-                    MovieHorizontalListView(
-                      movies: nowPlayingMovies,
-                      title: 'On Billboard',
-                      subTitle: 'On time',
-                      loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage()
-                    ),
-        
-                    MovieHorizontalListView(
-                      movies: topRatedMovies,
-                      title: 'Best Rated',
-                      // subTitle: 'This year',
-                      loadNextPage: () => ref.read(topRatedMoviesProvider.notifier).loadNextPage()
-                    ),
-              
-                    MovieHorizontalListView(
-                      movies: upcomingMovies,
-                      title: 'Coming Soon',
-                      // subTitle: 'This year',
-                      loadNextPage: () => ref.read(upcomingMoviesProvider.notifier).loadNextPage()
-                    ),
-              
-                    MovieHorizontalListView(
-                      movies: popularMovies,
-                      title: 'Popular',
-                      // subTitle: 'This year',
-                      loadNextPage: () => ref.read(popularMoviesProvider.notifier).loadNextPage()
-                    ),
-              
-                    const SizedBox(height: 10,)
-                  ],
-                );
-              },
-              childCount: 1
-            )
+
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 20),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return Column(
+                    children: [
+                      
+                      MoviesSlideshow(movies: slideShowMovies),
+          
+                      MovieHorizontalListView(
+                        movies: upcomingMovies,
+                        title: 'Coming Soon',
+                        // subTitle: 'This year',
+                        loadNextPage: () => ref.read(upcomingMoviesProvider.notifier).loadNextPage()
+                      ),
+                
+                      MovieHorizontalListView(
+                        movies: nowPlayingMovies,
+                        title: 'On Billboard',
+                        subTitle: 'On time',
+                        loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage()
+                      ),        
+                
+                      MovieHorizontalListView(
+                        movies: popularMovies,
+                        title: 'Popular',
+                        // subTitle: 'This year',
+                        loadNextPage: () => ref.read(popularMoviesProvider.notifier).loadNextPage()
+                      ),
+          
+                      MovieHorizontalListView(
+                        movies: topRatedMovies,
+                        title: 'Best Rated',
+                        // subTitle: 'This year',
+                        loadNextPage: () => ref.read(topRatedMoviesProvider.notifier).loadNextPage()
+                      ),
+                
+                      const SizedBox(height: 10,)
+                    ],
+                  );
+                },
+                childCount: 1
+              )
+            ),
           )
         ],
       ),
