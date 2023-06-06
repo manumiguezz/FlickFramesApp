@@ -6,6 +6,8 @@ FlickerFrames is an entertainment app designed for movie enthusiasts, providing 
 ![HomeScreenPreviewDark](https://github.com/manumiguezz/cinema_app/assets/111899370/31f031c5-cf76-40a5-b015-27de12230170)
 ![HomeViewTwoPreviewDark](https://github.com/manumiguezz/cinema_app/assets/111899370/37c93b45-649a-400e-b542-50eebe0195f3)
 ![MovieScreenPreviewDark](https://github.com/manumiguezz/cinema_app/assets/111899370/e8b1040d-f300-4e8e-9c1a-522847800d77)
+![AdjustmentViewDarkPreview](https://github.com/manumiguezz/FlickerFramesApp/assets/111899370/3f65c494-874a-4906-bf27-cd6180366847)
+![SearchViewDarkPreview](https://github.com/manumiguezz/FlickerFramesApp/assets/111899370/99cd9842-ad77-4abf-8d41-87ac13347a5f)
 
 # Technology 
 FlickerFrames is built using Dart and Flutter, leveraging the power of the Isar database for efficient data storage. It utilizes The Movie Database (TMDb) API to fetch movie information and enhance the user experience.
@@ -18,3 +20,4 @@ To run the app on your IDE, clone the repository and follow next steps:
 2. change variables from The MovieDB
 3. changes on the entity files. Execute the following command
     "flutter pub run build_runner build"
+
