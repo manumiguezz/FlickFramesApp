@@ -1,4 +1,4 @@
-# FlickerFrames
+# FlickFrames
 FlickerFrames is an entertainment app designed for movie enthusiasts, providing a comprehensive collection of movies, including information about vote averages, descriptions, and cast details. With FlickerFrames, you can explore a wide range of movies and discover similar titles that match your interests.
 
 # Preview
