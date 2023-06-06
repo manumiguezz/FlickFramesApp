@@ -1,5 +1,4 @@
 
-import 'package:app_cinema/config/theme/app_theme.dart';
 import 'package:app_cinema/presentation/providers/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:app_cinema/config/router/app_router.dart';

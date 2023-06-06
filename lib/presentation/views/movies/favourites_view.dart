@@ -1,11 +1,8 @@
 
 import 'package:app_cinema/presentation/providers/providers.dart';
 import 'package:app_cinema/presentation/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-
-
+import 'package:flutter/material.dart';
 
 class FavouritesView extends ConsumerStatefulWidget {
   const FavouritesView({super.key});

@@ -1,10 +1,9 @@
+import '../shared/movie_icon_average.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:app_cinema/config/helpers/human_formats.dart';
 import 'package:app_cinema/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../shared/movie_icon_average.dart';
 
 class MovieHorizontalListView extends StatefulWidget {
 

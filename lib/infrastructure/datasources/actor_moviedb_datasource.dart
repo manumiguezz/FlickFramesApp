@@ -1,6 +1,4 @@
 
-
-
 import 'package:app_cinema/config/constants/environment.dart';
 import 'package:app_cinema/domain/datasources/actors_datasource.dart';
 import 'package:app_cinema/domain/entities/actor.dart';

@@ -1,10 +1,9 @@
 
 
+import '../../../domain/entities/movie.dart';
 import 'package:app_cinema/domain/repositories/local_storage_repository.dart';
 import 'package:app_cinema/presentation/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../domain/entities/movie.dart';
 
 final favouriteMoviesProvider = StateNotifierProvider<StorageMoviesNotifier, Map<int, Movie>>((ref) {
   final localStorageRepository = ref.watch(localStorageRepositoryProvider);

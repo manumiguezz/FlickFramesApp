@@ -1,10 +1,8 @@
-import 'package:app_cinema/presentation/widgets/movies/movie_horizontal_listview.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-
 import '../../../domain/entities/movie.dart';
 import '../../providers/providers.dart';
+import 'package:app_cinema/presentation/widgets/movies/movie_horizontal_listview.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 
 
 final similarMoviesProvider = FutureProvider.family((ref, int movieId) {

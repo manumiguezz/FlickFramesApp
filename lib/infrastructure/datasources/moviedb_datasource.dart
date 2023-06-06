@@ -1,13 +1,10 @@
-import 'package:app_cinema/infrastructure/models/moviedb/movie_details.dart';
-
 import '../../domain/datasources/movies_datasource.dart';
 import '../../domain/entities/movie.dart';
 import 'package:app_cinema/config/constants/environment.dart';
 import 'package:app_cinema/infrastructure/mappers/movie_mapper.dart';
+import 'package:app_cinema/infrastructure/models/moviedb/movie_details.dart';
 import 'package:app_cinema/infrastructure/models/moviedb/moviedb_response.dart';
 import 'package:dio/dio.dart';
-
-
 
 class MovidedbDatasource extends MoviesDatasource {
 

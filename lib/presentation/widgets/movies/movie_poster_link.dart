@@ -1,11 +1,9 @@
 
+import '../../../domain/entities/movie.dart';
 import 'dart:math';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../domain/entities/movie.dart';
 
 class MoviePosterLink extends StatelessWidget {
 

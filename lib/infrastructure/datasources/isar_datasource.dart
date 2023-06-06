@@ -1,5 +1,4 @@
 
-
 import 'package:app_cinema/domain/datasources/local_storage_datasource.dart';
 import 'package:app_cinema/domain/entities/movie.dart';
 import 'package:isar/isar.dart';

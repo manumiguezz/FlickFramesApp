@@ -1,7 +1,7 @@
 
+import '../../views/views.dart';
 import 'package:app_cinema/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import '../../views/views.dart';
 
 
 

@@ -1,7 +1,5 @@
 import '../entities/movie.dart';
 
-
-
 abstract class LocalStorageDatasource {
 
   Future <void> toggleFavorite(Movie movie);

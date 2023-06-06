@@ -1,12 +1,12 @@
-import 'package:app_cinema/domain/entities/movie.dart';
-import 'package:app_cinema/presentation/widgets/shared/custom_drawer.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../../delegates/search_movie_delegate.dart';
 import '../../providers/movies/movies_slideshow_provider.dart';
 import '../../providers/providers.dart';
 import '../../widgets/widgets.dart';
+import 'package:app_cinema/domain/entities/movie.dart';
+import 'package:app_cinema/presentation/widgets/shared/custom_drawer.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({
@@ -46,7 +46,7 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
 
 
     return Scaffold(
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       body: CustomScrollView(
         slivers: [
         

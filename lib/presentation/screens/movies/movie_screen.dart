@@ -1,13 +1,12 @@
+import '../../../domain/entities/movie.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:app_cinema/config/helpers/human_formats.dart';
 import 'package:app_cinema/presentation/providers/movies/movie_info_provider.dart';
 import 'package:app_cinema/presentation/providers/providers.dart';
 import 'package:app_cinema/presentation/widgets/movies/similar_movies.dart';
 import 'package:app_cinema/presentation/widgets/shared/movie_rating_stars.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:app_cinema/config/helpers/human_formats.dart';
-
-import '../../../domain/entities/movie.dart';
+import 'package:flutter/material.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
   

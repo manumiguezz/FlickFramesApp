@@ -1,5 +1,4 @@
 
-
 import 'movie_moviedb.dart';
 
 class MovieDbResponse {

@@ -1,5 +1,4 @@
 
-
 import 'package:app_cinema/domain/entities/actor.dart';
 import 'package:app_cinema/infrastructure/models/moviedb/credits_response.dart';
 
