@@ -1,11 +1,12 @@
-
-import '../../views/views.dart';
-import 'package:app_cinema/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import '../../views/movies/favourites_view.dart';
+import '../../views/movies/home_view.dart';
+import '../../widgets/shared/custom_bottomnavigation.dart';
 
 
 
 class HomeScreen extends StatefulWidget {
+
   static const name = 'home-screen';
   final int pageIndex;
 
@@ -18,10 +19,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+//* Este Mixin es necesario para mantener el estado en el PageView
 class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin {
 
   late PageController pageController;
-  
 
   @override
   void initState() {
@@ -37,32 +38,34 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     super.dispose();
   }
 
-  final viewRoutes = const <Widget>[
-    HomeView(),
-    SizedBox(),
-    FavouritesView(),
+  final viewRoutes =  const <Widget>[
+    HomeView(), // <--- categorias View
+    FavoritesView(),
   ];
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    if ( pageController.hasClients) {
+    if ( pageController.hasClients ) {
       pageController.animateToPage(
         widget.pageIndex, 
-        duration: const Duration(milliseconds: 250), 
         curve: Curves.easeInOut, 
+        duration: const Duration( milliseconds: 250),
       );
     }
 
     return Scaffold(
       body: PageView(
+        //* Esto evitará que rebote 
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
+        // index: pageIndex,
         children: viewRoutes,
       ),
-      bottomNavigationBar: CustomBottomNavigation(
-        currentIndex: widget.pageIndex)
+      bottomNavigationBar: CustomBottomNavigation( 
+        currentIndex: widget.pageIndex,
+      ),
     );
   }
   

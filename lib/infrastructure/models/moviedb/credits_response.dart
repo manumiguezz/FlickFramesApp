@@ -1,5 +1,4 @@
 
-
 class CreditsResponse {
     CreditsResponse({
         required this.id,
@@ -91,3 +90,4 @@ class Cast {
         "job": job,
     };
 }
+

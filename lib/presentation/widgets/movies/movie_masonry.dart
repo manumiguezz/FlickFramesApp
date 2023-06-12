@@ -1,15 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../domain/entities/movie.dart';
-import '../widgets.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter/material.dart';
+import 'movie_poster_link.dart';
 
 
 class MovieMasonry extends StatefulWidget {
 
-  final List <Movie> movies;
+  final List<Movie> movies;
   final VoidCallback? loadNextPage;
-  
+
   const MovieMasonry({
     super.key, 
     required this.movies, 
@@ -27,13 +27,16 @@ class _MovieMasonryState extends State<MovieMasonry> {
   @override
   void initState() {
     super.initState();
-    scrollController.addListener(() {
-      if(widget.loadNextPage == null) return;
+    
+    scrollController.addListener(() { 
+      if ( widget.loadNextPage == null ) return;
 
-      if( scrollController.position.pixels >= scrollController.position.maxScrollExtent){
+      if ( (scrollController.position.pixels + 100) >= scrollController.position.maxScrollExtent ) {
         widget.loadNextPage!();
       }
+
     });
+
   }
 
   @override
@@ -49,19 +52,21 @@ class _MovieMasonryState extends State<MovieMasonry> {
       child: MasonryGridView.count(
         controller: scrollController,
         crossAxisCount: 3, 
-        itemCount: widget.movies.length,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
+        itemCount: widget.movies.length,
         itemBuilder: (context, index) {
-          if ( index == 1) {
+
+          if ( index == 1 ) {
             return Column(
               children: [
-                const SizedBox(height: 40,),
-                MoviePosterLink(movie: widget.movies[index])
+                const SizedBox(height: 20 ),
+                MoviePosterLink( movie: widget.movies[index] )
               ],
             );
           }
-          return MoviePosterLink(movie: widget.movies[index]);
+          
+          return MoviePosterLink( movie: widget.movies[index] );
         },
       ),
     );

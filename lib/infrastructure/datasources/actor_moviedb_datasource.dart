@@ -27,5 +27,5 @@ class ActorMovieDbDatasource extends ActorsDatasource {
   }).toList();
 
   return actors;
-} 
+  } 
 }
