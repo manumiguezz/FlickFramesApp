@@ -56,14 +56,17 @@ class FavoritesViewState extends ConsumerState<FavoritesView> with AutomaticKeep
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon( Icons.favorite_outline_sharp, size: 60, color: colors.primary ),
+            SizedBox(
+              height: 100,
+              child: Image.asset('assets/sad-face.png')
+            ),
             Text('Ohhh no!!', style: TextStyle( fontSize: 30, color: colors.primary)),
-            const Text('No tienes películas favoritas', style: TextStyle( fontSize: 20 )),
+            const Text('You have no favourites Movies', style: TextStyle( fontSize: 20 )),
 
             const SizedBox(height: 20),
             FilledButton.tonal(
               onPressed: () => context.go('/home/0'), 
-              child: const Text('Empieza a buscar')
+              child: const Text('Start searching!')
             )
           ],
         ),

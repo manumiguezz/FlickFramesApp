@@ -54,7 +54,7 @@ class HomeViewState extends ConsumerState<HomeView> with AutomaticKeepAliveClien
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             sliver: SliverAppBar(
               title: const Text('FLICKFRAMES', style: TextStyle(fontWeight: FontWeight.bold),),
-              backgroundColor: colors.background,
+              // backgroundColor: Colors.blue.shade900,
               centerTitle: true,
               pinned: false,
               actions: [

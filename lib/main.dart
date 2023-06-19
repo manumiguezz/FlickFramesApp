@@ -5,6 +5,8 @@ import 'package:app_cinema/config/router/app_router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'config/theme/app_theme.dart';
+
 
 Future <void> main() async {
 
@@ -22,6 +24,8 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+
+
   bool isDarkModeEnabled = false;
 
   void toggleTheme(){
@@ -35,14 +39,16 @@ class _MainAppState extends State<MainApp> {
     return Consumer(
       builder: (context, ref, _) {
         final themeProvider = ref.watch(themeProviderNotifier);
+
         return MaterialApp.router(
           routerConfig: appRouter,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
+          theme: appThemeData(),
+          darkTheme: appThemeDataDark(),
           themeMode: themeProvider.currentThemeMode,
         );
       },
     );
   }
+
 }

@@ -6,4 +6,3 @@ export 'package:app_cinema/presentation/widgets/movies/movie_horizontal_listview
 export 'package:app_cinema/presentation/widgets/movies/movies_slideshow.dart';
 export 'package:app_cinema/presentation/widgets/shared/custom_bottomnavigation.dart';
 export 'package:app_cinema/presentation/widgets/shared/full_screen_loader.dart';
-export 'shared/custom_appbar.dart';

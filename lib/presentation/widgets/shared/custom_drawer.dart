@@ -46,9 +46,6 @@ class _CustomListView extends StatelessWidget {
       children: [
         
         DrawerHeader(
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColorLight,
-          ),
           child: Text(
             'Adjustment',
             style: textStyles.titleLarge,
